@@ -30,9 +30,17 @@ export default class HomeComponent extends Component {
         var updatedCallStates = this.state.callStates
         updatedCallStates.push(event + ' - ' + number)
         var previousDS = this.state.ds
+        if( event === 'Offhook' && number == '1111111111') {
+          console.log('passou')
+          // Linking.openURL('whatsapp://send?text=Mi Casa Su Casa!&phone=+5511996087109')
+          Linking.openURL('appmeuvivofixo://appmeuvivofixo')
+          .catch(err => {
+            console.log(err)
+          });
+        }
         this.setState({ callStates:  updatedCallStates, ds: previousDS.cloneWithRows(updatedCallStates)});
       },
-      false, // if you want to read the phone number of the incoming call [ANDROID], otherwise false
+      true, // if you want to read the phone number of the incoming call [ANDROID], otherwise false
       ()=>{}, // callback if your permission got denied [ANDROID] [only if you want to read incoming number] default: console.error
       {
         title: 'Phone State Permission',
@@ -42,7 +50,7 @@ export default class HomeComponent extends Component {
   }
 
   callFriendTapped() {
-    Linking.openURL('tel:5555555555')
+    Linking.openURL('tel:1111111111')
       .catch(err => {
         console.log(err)
       });
@@ -50,6 +58,11 @@ export default class HomeComponent extends Component {
 
   stopListenerTapped() {
     callDetector && callDetector.dispose();
+  }
+
+  endCallTapped() {
+    console.log('clicou');
+    callDetector && callDetector.hangup();
   }
 
   render() {
@@ -73,6 +86,12 @@ export default class HomeComponent extends Component {
           onPress={this.stopListenerTapped}
           title="Stop Listener"
           color="#841584"
+          style = {styles.bottomMargin}
+        />
+        <Button
+          onPress={this.endCallTapped}
+          title="Hang Up"
+          color="#341584"
           style = {styles.bottomMargin}
         />
 
