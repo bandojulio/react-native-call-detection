@@ -32,8 +32,7 @@ export default class HomeComponent extends Component {
         var previousDS = this.state.ds
         if( event === 'Offhook' && number == '1111111111') {
           console.log('passou')
-          // Linking.openURL('whatsapp://send?text=Mi Casa Su Casa!&phone=+5511996087109')
-          Linking.openURL('appmeuvivofixo://appmeuvivofixo')
+          Linking.openURL('whatsapp://send')
           .catch(err => {
             console.log(err)
           });
